@@ -1,0 +1,15 @@
+export const FETCH_USERS = "FETCH_USERS";
+export const EDIT_MODE = "EDIT_MODE";
+export const CLEAR_STATE = "CLEAR_STATE";
+export const FETCH_USERS_ASYNC = "FETCH_USERS_ASYNC";
+export const ADD_USER = "ADD_USER";
+export const ADD_USER_ASYNC = "ADD_USER_ASYNC";
+export const FETCH_USER_BY_ID = "FETCH_USER_BY_ID";
+export const FETCH_USER_BY_ID_ASYNC = "FETCH_USER_BY_ID_ASYNC";
+export const EDIT_USER = "EDIT_USER";
+export const EDIT_USER_ASYNC = "EDIT_USER_ASYNC";
+export const DELETE_USER = "DELETE_USER";
+export const DELETE_USER_ASYNC = "DELETE_USER_ASYNC";
+export const FETCH_USERS_ASYNC_ERROR = "FETCH_USERS_ASYNC_ERROR";
+export const EDITED = "EDITED";
+export const ADD_USER_BUTTON_CLICKED = 'ADD_USER_BUTTON_CLICKED';
