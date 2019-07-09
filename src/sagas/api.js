@@ -1,12 +1,12 @@
+import axios from "axios";
+
 export const fetchUsers = () => {
-  fetch("https://localhost:44384/api/users", {
-    method: "GET",
+  return axios.request({
+    method: "get",
     headers: {
-      "content-type": "application/json"
-    }
-  })
-    .then(response => {
-      response.json();
-    })
-    .then(user => user, error => "json failed");
+      "Content-Type": "application/json"
+    },
+
+    url: "https://localhost:44383/api/users"
+  });
 };

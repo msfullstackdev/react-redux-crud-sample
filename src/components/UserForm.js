@@ -4,28 +4,23 @@ import { addUser } from "../actions/userActions";
 import "bootstrap/dist/css/bootstrap.css";
 
 class UserForm extends React.Component {
-  onSubmit = e => 
-  {
-      e.preventDefault();
-      const FirstName = this.getFirstName.value;
-      const LastName = this.getLastName.value;
-      const DOB = this.getDateOfbirth.value;
-      const Phone = this.getPhoneNumber.value;
-      const Email = this.getEmail.value;
-      const City = this.getCity.value;
-      const State = this.getState.value;
-      
-      const user = {FirstName,LastName,DOB,Phone,Email,City,State};
+  onSubmit = e => {
+    e.preventDefault();
+    const firstName = this.getFirstName.value;
+    const lastName = this.getLastName.value;
 
-      this.props.addUser(user);
-      this.props.AddClicked();
+    const email = this.getEmail.value;
 
-  }
+    const user = { firstName:firstName, lastName:lastName, email:email };
+
+    this.props.addUser(user);
+    this.props.AddClicked();
+  };
 
   render() {
     return (
       <div>
-        <h3> Add User </h3>
+        <h3>Add</h3>
         <br />
         <div className="container">
           <form onSubmit={this.onSubmit} className="form">
@@ -35,7 +30,7 @@ class UserForm extends React.Component {
               <input
                 required
                 className="form-control-sm"
-                id="FirstName"
+                id="firstName"
                 type="text"
                 ref={input => (this.getFirstName = input)}
               />
@@ -46,20 +41,9 @@ class UserForm extends React.Component {
               <input
                 required
                 className="form-control-sm"
-                id="LastName"
+                id="lastName"
                 type="text"
                 ref={input => (this.getLastName = input)}
-              />
-            </div>
-            <div className="form-group">
-              <label>Date of Birth</label>
-              <br />
-              <input
-                required
-                className="form-control-sm"
-                id="DOB"
-                type="text"
-                ref={input => (this.getDateOfbirth = input)}
               />
             </div>
             <div className="form-group">
@@ -68,42 +52,9 @@ class UserForm extends React.Component {
               <input
                 required
                 className="form-control-sm"
-                id="Email"
+                id="email"
                 type="text"
                 ref={input => (this.getEmail = input)}
-              />
-            </div>
-            <div className="form-group">
-              <label>Phone</label>
-              <br />
-              <input
-                required
-                className="form-control-sm"
-                id="Phone"
-                type="text"
-                ref={input => (this.getPhoneNumber = input)}
-              />
-            </div>
-            <div className="form-group">
-              <label>City</label>
-              <br />
-              <input
-                required
-                className="form-control-sm"
-                id="City"
-                type="text"
-                ref={input => (this.getCity = input)}
-              />
-            </div>
-            <div className="form-group">
-              <label>State</label>
-              <br />
-              <input
-                required
-                className="form-control-sm"
-                id="State"
-                type="text"
-                ref={input => (this.getState = input)}
               />
             </div>
             <button className="btn btn-primary">Add</button>
@@ -114,5 +65,7 @@ class UserForm extends React.Component {
   }
 }
 
-
-export default connect(null,{addUser})(UserForm);
+export default connect(
+  null,
+  { addUser }
+)(UserForm);

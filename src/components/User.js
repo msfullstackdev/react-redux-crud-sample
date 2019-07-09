@@ -28,7 +28,7 @@ class User extends React.Component {
   render() {
     return (
       <div>
-        <h1>User Info</h1>
+        <h2>Demo - React, Redux and Redux-Saga</h2>
         {this.props.edit === true && (
           <h3 className="alert alert-success">Data Edited Successfully</h3>
         )}
@@ -36,7 +36,7 @@ class User extends React.Component {
         {this.state.isSaveBtnClicked === false &&
           this.props.isEditBtnClicked === false && (
             <button className="btn btn-primary" onClick={this.onClick}>
-              Add User
+              Add
             </button>
           )}
         <br />

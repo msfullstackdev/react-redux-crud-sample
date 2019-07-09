@@ -7,52 +7,37 @@ class UserEdit extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      Id: "",
-      FirstName: "",
-      LastName: "",
-      DOB: "",
-      Phone: "",
-      Email: "",
-      City: "",
-      State: ""
+      id: "",
+      firstName: "",
+      lastName: "",
+      email: ""
     };
   }
 
   componentDidMount() {
-    let user = this.props.User;
+    let user = this.props.user;
     this.setState({
-      Id: user.Id,
-      FirstName: user.FirstName,
-      LastName: user.LastName,
-      DOB: user.DOB,
-      Phone: user.Phone,
-      Email: user.Email,
-      City: user.City,
-      State: user.State
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email
     });
   }
 
   onSubmit = e => {
     e.preventDefault();
 
-    const Id = this.state.Id;
-    const FirstName = this.state.FirstName;
-    const LastName = this.state.LastName;
-    const DOB = this.state.DOB;
-    const Phone = this.state.Phone;
-    const Email = this.state.Email;
-    const City = this.state.City;
-    const State = this.state.State;
+    const id = this.state.id;
+    const firstName = this.state.firstName;
+    const lastName = this.state.lastName;
+
+    const email = this.state.email;
 
     const user = {
-      Id,
-      FirstName,
-      LastName,
-      DOB,
-      Phone,
-      Email,
-      City,
-      State
+      id,
+      firstName,
+      lastName,
+      email
     };
     this.props.editUser(user);
   };
@@ -68,9 +53,9 @@ class UserEdit extends React.Component {
               required
               type="text"
               className="form-control"
-              value={this.state.FirstName}
+              value={this.state.firstName}
               onChange={e => {
-                this.setState({ FirstName: e.target.value });
+                this.setState({ firstName: e.target.value });
               }}
             />
           </div>
@@ -81,74 +66,25 @@ class UserEdit extends React.Component {
               required
               type="text"
               className="form-control"
-              value={this.state.LastName}
+              value={this.state.lastName}
               onChange={e => {
-                this.setState({ LastName: e.target.value });
+                this.setState({ lastName: e.target.value });
               }}
             />
           </div>
-          <div className="form-group">
-            <label> DOB </label>
-            <input
-              required
-              type="text"
-              className="form-control"
-              value={this.state.DOB}
-              onChange={e => {
-                this.setState({ DOB: e.target.value });
-              }}
-            />
-          </div>
-
           <div className="form-group">
             <label> Email </label>
             <input
               required
               type="text"
               className="form-control"
-              value={this.state.Email}
+              value={this.state.email}
               onChange={e => {
-                this.setState({ Email: e.target.value });
+                this.setState({ email: e.target.value });
               }}
             />
           </div>
 
-          <div className="form-group">
-            <label> Phone </label>
-            <input
-              required
-              type="text"
-              className="form-control"
-              value={this.state.Phone}
-              onChange={e => {
-                this.setState({ Phone: e.target.value });
-              }}
-            />
-          </div>
-          <div className="form-group">
-            <label> City </label>
-            <input
-              required
-              type="text"
-              className="form-control"
-              value={this.state.City}
-              onChange={e => {
-                this.setState({ City: e.target.value });
-              }}
-            />
-          </div>
-          <div className="form-group">
-            <label> State </label>
-            <input
-              required
-              type="text"
-              className="form-control"
-              value={this.state.State}
-              onChange={e => {
-                this.setState({ State: e.target.value });
-              }}
-            />
-          </div>
           <button className="btn btn-primary">Edit</button>
         </form>
       </div>
@@ -157,7 +93,7 @@ class UserEdit extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  user: this.state.employee
+  user: state.userReducer.user
 });
 
 export default connect(

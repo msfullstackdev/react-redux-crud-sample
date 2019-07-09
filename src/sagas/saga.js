@@ -1,9 +1,15 @@
-import { takeEvery, call, put, delay } from "redux-saga/effects";
+import {
+  takeEvery,
+  call,
+  put
+  // , delay
+} from "redux-saga/effects";
+import axios from "axios";
 import {
   FETCH_USERS,
-  EDITED,
+  // EDITED,
   FETCH_USERS_ASYNC,
-  FETCH_USERS_ASYNC_ERROR,
+  // FETCH_USERS_ASYNC_ERROR,
   ADD_USER,
   ADD_USER_ASYNC,
   EDIT_USER,
@@ -20,71 +26,32 @@ export default function* rootWatcher() {
   yield takeEvery(DELETE_USER, deleteUserAsync);
 }
 
-function* fetchUsersAsync() {
+export function* fetchUsersAsync() {
+  let response = yield call(fetchUsers);
+  yield put({ type: FETCH_USERS_ASYNC, payload: response.data });
+}
+
+export function* addUserAsync(action) {
+  yield axios.post(`https://localhost:44383/api/users`, {
+    email: action.payload.email,
+    firstName: action.payload.firstName,
+    lastName: action.payload.lastName
+  });
+
+  yield put({ type: ADD_USER_ASYNC, payload: action.payload });
+}
+
+export function* editUserAsync(action) {
+  axios.put(
+    `https://localhost:44383/api/users/` + action.payload.iD,
+    action.payload
+  );
+  yield put({ type: EDIT_USER_ASYNC, payload: action.payload });
   const data = yield call(fetchUsers);
-  alert("api called");
-  if (data === "json failed") {
-    yield put({ type: FETCH_USERS_ASYNC_ERROR, payload: data });
-   
-  } else {
-    yield put({ type: FETCH_USERS_ASYNC, payload: data });
-  }
+  yield put({ type: FETCH_USERS_ASYNC, payload: data.data });
 }
 
-function* addUserAsync(action) {
-  const apiResult = yield fetch("https://localhost:44384/api/users", {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-      Accept: "application/json"
-    },
-    body: JSON.stringify(action.payload)
-  })
-    .then(res => res.json())
-    .then(user => {
-      return user;
-    });
-
-  yield put({ type: ADD_USER_ASYNC, payload: apiResult });
-}
-
-function* editUserAsync(action) {
-  console.log("inside saga edit");
-  const apiResult = yield fetch(
-    "https://localhost:44384/api/users/" + action.payload.ID,
-    {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json",
-        Accept: "application/json"
-      },
-      body: JSON.stringify(action.payload)
-    }
-  )
-    .then(res => res.json())
-    .then(usr => {
-      return usr;
-    });
-
-  yield put({ type: EDIT_USER_ASYNC, payload: apiResult });
-  const data = yield call(fetchUsers);
-  yield put({ type: FETCH_USERS_ASYNC, payload: data });
-}
-
-function* deleteUserAsync(action) {
-  const apiResult = yield fetch(
-    "https://localhost:44384/api/users/" + action.payload,
-    {
-      method: "DELETE",
-      headers: {
-        "content-type": "application/json",
-        Accept: "application/json"
-      }
-    }
-  )
-    .then(response => response.json())
-    .then(users => {
-      return users;
-    });
+export function* deleteUserAsync(action) {
+  axios.delete("https://localhost:44383/api/users/" + action.payload);
   yield put({ type: DELETE_USER_ASYNC, payload: action.payload });
 }
